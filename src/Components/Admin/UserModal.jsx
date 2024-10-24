@@ -1,29 +1,38 @@
 import React, { useState, useEffect } from 'react';
 
-function ClientModal({ isOpen, onClose, onSave, clientData }) {
+function UserModal({ isOpen, onClose, onSave, userData, clients = [] }) {
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     phoneNumber: '',
-    industry: '',
-    panCardNumber: '',
-    password: ''
+    client: '',
+    password: '',
+    panCardNumber: ''
   });
 
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (clientData) {
+    if (userData) {
       setFormData({
-        name: clientData.name || '',
-        email: clientData.email || '',
-        phoneNumber: clientData.mobile_number || '',
-        industry: clientData.industry || '',
-        panCardNumber: clientData.pan_card_number || '',
-        password: ''
+        username: userData.name || '',
+        email: userData.email || '',
+        phoneNumber: userData.mobile_number || '',
+        client: userData.client_id || '',
+        password: '',
+        panCardNumber: userData.panCardNumber || ''
+      });
+    } else {
+      setFormData({
+        username: '',
+        email: '',
+        phoneNumber: '',
+        client: '',
+        password: '',
+        panCardNumber: ''
       });
     }
-  }, [clientData]);
+  }, [userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +42,7 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.username.trim()) newErrors.username = 'Username is required';
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
@@ -48,14 +57,18 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
       newErrors.phoneNumber = 'Phone number must be 10 digits';
     }
 
-    const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    if (!formData.client) {
+      newErrors.client = 'Client is required';
+    }
+
+    const panCardPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
     if (!formData.panCardNumber) {
       newErrors.panCardNumber = 'PAN card number is required';
-    } else if (!panPattern.test(formData.panCardNumber)) {
+    } else if (!panCardPattern.test(formData.panCardNumber)) {
       newErrors.panCardNumber = 'Invalid PAN card format';
     }
 
-    if (!clientData && !formData.password) {
+    if (!userData && !formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password && formData.password.length < 5) {
       newErrors.password = 'Password must be at least 5 characters';
@@ -78,20 +91,20 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-xl font-bold mb-4">
-          {clientData ? 'Edit Client' : 'Create New Client'}
+          {userData ? 'Edit User' : 'Create New User'}
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="block mb-1">Name</label>
+            <label className="block mb-1">Username</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               className="w-full border px-3 py-2 rounded"
               required
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
           </div>
           <div className="mb-3">
             <label className="block mb-1">Email</label>
@@ -120,14 +133,26 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
             )}
           </div>
           <div className="mb-3">
-            <label className="block mb-1">Industry</label>
-            <input
-              type="text"
-              name="industry"
-              value={formData.industry}
+            <label className="block mb-1">Client</label>
+            <select
+              name="client"
+              value={formData.client}
               onChange={handleChange}
               className="w-full border px-3 py-2 rounded"
-            />
+              required
+            >
+              <option value="">Select Client</option>
+              {clients.length > 0 ? (
+                clients.map((client) => (
+                  <option key={client.id} value={client.id}>
+                    {client.name}
+                  </option>
+                ))
+              ) : (
+                <option value="">No Clients Available</option>
+              )}
+            </select>
+            {errors.client && <p className="text-red-500 text-sm">{errors.client}</p>}
           </div>
           <div className="mb-3">
             <label className="block mb-1">PAN Card Number</label>
@@ -151,7 +176,7 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
               value={formData.password}
               onChange={handleChange}
               className="w-full border px-3 py-2 rounded"
-              required={!clientData}
+              required={!userData}
             />
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password}</p>
@@ -169,7 +194,7 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded"
             >
-              {clientData ? 'Update' : 'Create'}
+              {userData ? 'Update' : 'Create'}
             </button>
           </div>
         </form>
@@ -178,4 +203,4 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
   );
 }
 
-export default ClientModal;
+export default UserModal;

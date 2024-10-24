@@ -1,27 +1,38 @@
 import React,{useState} from 'react'
-import { adminendpoints } from '../../Service/endpoints/adminAxios';
-import { adminAxios } from '../../Utils/Config';
+import { clientAxios } from '../../Utils/Config';
+import { clientendpoints } from '../../Service/endpoints/clientAxios';
+import { useDispatch } from 'react-redux';
+import { login } from '../../Service/Redux/Slice/authSlice';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
- 
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault(); 
-alert('kk')
     try {
-      const response = await adminAxios.post(adminendpoints.login, {
+      const response = await clientAxios.post(clientendpoints.login, {
         email,
         password,
       });
-      
       console.log('Login successful:', response.data);
+      const { token, client } = response.data; 
+      localStorage.setItem('token', token);
+      const userData = {
+        user: client.email, 
+        role: client.role,
+        id:client.id,
+      };
+      dispatch(login(userData));
+      toast.success('Login Suceessfully');
+      navigate('/client/home');
     } catch (err) {
-      
-      console.error('Login failed:', err.response.data);
-      setError('Invalid username or password.'); 
-      alert(error)
+      toast.error('Invalid credentials');
+      console.error('Login failed:', err);
   };
 }
 

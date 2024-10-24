@@ -1,26 +1,40 @@
 import React,{useState} from 'react'
-
+import { userAxios } from '../../Utils/Config';
+import { userendpoints } from '../../Service/endpoints/userAxios';
+import { useDispatch } from 'react-redux';
+import { login } from '../../Service/Redux/Slice/authSlice';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
     try {
-      const response = await adminAxios.post(adminendpoints.login, {
+      const response = await userAxios.post(userendpoints.login, {
         email,
         password,
       });
-      
       console.log('Login successful:', response.data);
+      const { token, user } = response.data; 
+      localStorage.setItem('token', token);
+      const userData = {
+        user: user.email, 
+        role: user.role,
+        id:user.id,
+      };
+      dispatch(login(userData));
+      toast.success('Login Suceessfully');
+      navigate('/home');
     } catch (err) {
-      
-      console.error('Login failed:', err.response.data);
-      setError('Invalid username or password.'); 
-      alert(error)
+      toast.error('Invalid credentials');
+      console.error('Login failed:', err);
   };
 }
 

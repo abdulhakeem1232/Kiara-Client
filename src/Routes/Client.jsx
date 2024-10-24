@@ -3,6 +3,7 @@ import { Navigate, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 // import ClientHome from './ClientHome'; 
 import ClientLogin from '../Pages/Clients/LoginPage';
+import HomePage from '../Pages/Clients/HomePage';
 
 const ClientRoutes = () => {
   const { isAuthenticated, role } =  useSelector((state) => state.userData);
@@ -25,7 +26,7 @@ const ClientRoutes = () => {
 
   return (
     <Routes>
-      
+      <Route path="home" element={<HomePage/>} />
       
     </Routes>
   );

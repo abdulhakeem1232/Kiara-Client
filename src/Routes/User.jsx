@@ -1,12 +1,11 @@
 import React from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import UserHome from './UserHome'; 
-import UserLogin from '../Pages/Users/LoginPage';
+import HomePage from '../Pages/Users/HomePage';
+
 
 const UserRoutes = () => {
     const state = useSelector((state) => state);
-console.log('==================',state);
   const { isAuthenticated, role } =  useSelector((state) => state.userData);
 
   if (!isAuthenticated) {
@@ -23,8 +22,8 @@ console.log('==================',state);
 
   return (
     <Routes>
-    <Route path="/" element={<UserLogin />} />
-      {/* <Route path="/home" element={<UserHome />} /> */}
+   
+      <Route path="/home" element={<HomePage />} />
     </Routes>
   );
 };

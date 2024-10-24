@@ -25,6 +25,7 @@ function Login() {
       const userData = {
         user: admin.email, 
         role: admin.role,
+        id:admin.id
       };
       dispatch(login(userData));
       navigate('/admin/dashboard');

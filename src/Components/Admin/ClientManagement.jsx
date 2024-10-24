@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { adminAxios } from '../../Utils/Config'; 
 import { adminendpoints } from '../../Service/endpoints/adminAxios';
-import { useNavigate } from 'react-router-dom';
 import ClientModal from './ClientModal';
 import ConfirmModal from './ConfirmModal';
+import { toast } from 'sonner';
 
 function ClientManagement() {
   const [clients, setClients] = useState([]);
@@ -11,7 +11,6 @@ function ClientManagement() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); 
   const [clientToDelete, setClientToDelete] = useState(null); 
-  const navigate = useNavigate();
 
   const fetchClients = async () => {
     try {
@@ -61,10 +60,16 @@ function ClientManagement() {
 
   const handleSave = async(formData) => {
     if (selectedClient) {
-       await adminAxios.put(`${adminendpoints.updateclient}/${selectedClient.id}`, formData)
+      let response= await adminAxios.put(`${adminendpoints.updateclient}/${selectedClient.id}`, formData)
+      console.log(response);
        await fetchClients();
     } else {
-     await adminAxios.post(adminendpoints.createclient, formData) 
+    let response= await adminAxios.post(adminendpoints.createclient, formData) 
+    console.log(response);
+    if(!response.data.success){
+      toast.error(response.data.message)
+      return;
+    }
       await fetchClients();
     }
     setIsModalOpen(false);  
