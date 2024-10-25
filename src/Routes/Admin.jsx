@@ -6,6 +6,7 @@ import DashboardPage from '../Pages/Admin/DashboardPage';
 import UserManagementPage from '../Pages/Admin/UserManagementPage';
 import ClientManagementPage from '../Pages/Admin/ClientManagementPage';
 import AdminLayout from '../Components/Admin/AdminLayout';
+import PancardPage from '../Pages/Admin/PancardPage';
 
 const AdminRoutes = () => {
   const { isAuthenticated, role } = useSelector((state) => state.userData);
@@ -28,6 +29,7 @@ const AdminRoutes = () => {
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="users" element={<UserManagementPage />} />
         <Route path="clients" element={<ClientManagementPage />} />
+        <Route path="pancard" element={<PancardPage />} />
       </Route>
     </Routes>
   );

@@ -36,6 +36,12 @@ function AdminSidebar() {
           >
             <span>User Management</span>
           </a>
+          <a
+            href="/admin/pancard"
+            className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-700 p-3 rounded-lg"
+          >
+            <span>Pan Card Validation</span>
+          </a>
         </nav>
       </div>
 

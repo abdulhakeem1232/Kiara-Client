@@ -3,6 +3,7 @@ import axios from 'axios';
 export const USER_BASE_URL = 'http://localhost:3001';
 export const CLIENT_BASE_URL = 'http://localhost:3001/client';
 export const ADMIN_BASE_URL = 'http://localhost:3001/admin';
+export const PAN_BASE_URL = 'https://mvp.verify24x7.in/verifyApi';
 
 const defaultConfig = {
   headers: {
@@ -39,6 +40,12 @@ const adminAxios = axios.create({
   ...defaultConfig,
 });
 
+const panAxios = axios.create({
+  baseURL: PAN_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 [userAxios, clientAxios, adminAxios].forEach(instance => {
   instance.interceptors.request.use(
@@ -47,4 +54,4 @@ const adminAxios = axios.create({
   );
 });
 
-export { userAxios, clientAxios, adminAxios };
+export { userAxios, clientAxios, adminAxios,panAxios };
