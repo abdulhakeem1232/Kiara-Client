@@ -7,7 +7,7 @@ import { clientendpoints } from '../../Service/endpoints/clientAxios';
 import io from 'socket.io-client';
 
 // const socket = io('http://localhost:3001');
-const socket = io('https://kiara-server.vercel.app', {
+const socket = io('http://13.51.161.234:3001', {
   transports: ['websocket']
 });
 
