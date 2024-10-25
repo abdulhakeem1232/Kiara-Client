@@ -65,8 +65,8 @@ function ClientManagement() {
        await fetchClients();
     } else {
     let response= await adminAxios.post(adminendpoints.createclient, formData) 
-    console.log(response);
-    if(!response.data.success){
+    console.log(response.data,'00');
+    if(response.data.success==false){
       toast.error(response.data.message)
       return;
     }

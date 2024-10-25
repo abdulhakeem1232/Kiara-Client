@@ -65,7 +65,7 @@ function UserManagement() {
        await fetchUsers();
     } else {
       let response = await adminAxios.post(adminendpoints.createuser, formData) 
-     if(!response.data.success){
+     if(response.data.success==false){
       toast.error(response.data.message)
       return;
     }

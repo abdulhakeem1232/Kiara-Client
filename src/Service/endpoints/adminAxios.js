@@ -11,5 +11,8 @@ export const adminendpoints = {
     deletClient:`${ADMIN_BASE_URL}/deleteClient`,
     deletUser:`${ADMIN_BASE_URL}/deleteUser`,
     validatePan:`${PAN_BASE_URL}/api/validate-pan`,
+    dailyMetrics:`${ADMIN_BASE_URL}/dailymetrics`,
+    weeklyMetrics:`${ADMIN_BASE_URL}/weeklymetrics`,
+    monthlyMetrics:`${ADMIN_BASE_URL}/monthlymetrics`,
 
 };

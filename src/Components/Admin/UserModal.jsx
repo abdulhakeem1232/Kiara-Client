@@ -7,7 +7,6 @@ function UserModal({ isOpen, onClose, onSave, userData, clients = [] }) {
     phoneNumber: '',
     client: '',
     password: '',
-    panCardNumber: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -20,7 +19,6 @@ function UserModal({ isOpen, onClose, onSave, userData, clients = [] }) {
         phoneNumber: userData.mobile_number || '',
         client: userData.client_id || '',
         password: '',
-        panCardNumber: userData.panCardNumber || ''
       });
     } else {
       setFormData({
@@ -29,7 +27,6 @@ function UserModal({ isOpen, onClose, onSave, userData, clients = [] }) {
         phoneNumber: '',
         client: '',
         password: '',
-        panCardNumber: ''
       });
     }
   }, [userData]);
@@ -59,13 +56,6 @@ function UserModal({ isOpen, onClose, onSave, userData, clients = [] }) {
 
     if (!formData.client) {
       newErrors.client = 'Client is required';
-    }
-
-    const panCardPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-    if (!formData.panCardNumber) {
-      newErrors.panCardNumber = 'PAN card number is required';
-    } else if (!panCardPattern.test(formData.panCardNumber)) {
-      newErrors.panCardNumber = 'Invalid PAN card format';
     }
 
     if (!userData && !formData.password) {
@@ -153,20 +143,6 @@ function UserModal({ isOpen, onClose, onSave, userData, clients = [] }) {
               )}
             </select>
             {errors.client && <p className="text-red-500 text-sm">{errors.client}</p>}
-          </div>
-          <div className="mb-3">
-            <label className="block mb-1">PAN Card Number</label>
-            <input
-              type="text"
-              name="panCardNumber"
-              value={formData.panCardNumber}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-              required
-            />
-            {errors.panCardNumber && (
-              <p className="text-red-500 text-sm">{errors.panCardNumber}</p>
-            )}
           </div>
           <div className="mb-3">
             <label className="block mb-1">Password</label>

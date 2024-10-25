@@ -6,7 +6,6 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
     email: '',
     phoneNumber: '',
     industry: '',
-    panCardNumber: '',
     password: ''
   });
 
@@ -19,7 +18,6 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
         email: clientData.email || '',
         phoneNumber: clientData.mobile_number || '',
         industry: clientData.industry || '',
-        panCardNumber: clientData.pan_card_number || '',
         password: ''
       });
     }
@@ -46,13 +44,6 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
       newErrors.phoneNumber = 'Phone number is required';
     } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
       newErrors.phoneNumber = 'Phone number must be 10 digits';
-    }
-
-    const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-    if (!formData.panCardNumber) {
-      newErrors.panCardNumber = 'PAN card number is required';
-    } else if (!panPattern.test(formData.panCardNumber)) {
-      newErrors.panCardNumber = 'Invalid PAN card format';
     }
 
     if (!clientData && !formData.password) {
@@ -128,20 +119,6 @@ function ClientModal({ isOpen, onClose, onSave, clientData }) {
               onChange={handleChange}
               className="w-full border px-3 py-2 rounded"
             />
-          </div>
-          <div className="mb-3">
-            <label className="block mb-1">PAN Card Number</label>
-            <input
-              type="text"
-              name="panCardNumber"
-              value={formData.panCardNumber}
-              onChange={handleChange}
-              className="w-full border px-3 py-2 rounded"
-              required
-            />
-            {errors.panCardNumber && (
-              <p className="text-red-500 text-sm">{errors.panCardNumber}</p>
-            )}
           </div>
           <div className="mb-3">
             <label className="block mb-1">Password</label>
