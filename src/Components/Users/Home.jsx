@@ -6,7 +6,9 @@ import { userAxios } from '../../Utils/Config';
 import { userendpoints } from '../../Service/endpoints/userAxios';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+// const socket = io('http://localhost:3001');
+const socket = io('https://kiara-server.vercel.app');
+
 
 function ClientHome() {
   const [userDetails, setUserDetails] = useState(null);

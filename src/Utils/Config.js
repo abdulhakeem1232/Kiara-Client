@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-export const USER_BASE_URL = 'http://localhost:3001';
-export const CLIENT_BASE_URL = 'http://localhost:3001/client';
-export const ADMIN_BASE_URL = 'http://localhost:3001/admin';
+// export const USER_BASE_URL = 'http://localhost:3001';
+// export const CLIENT_BASE_URL = 'http://localhost:3001/client';
+// export const ADMIN_BASE_URL = 'http://localhost:3001/admin';
+
+export const USER_BASE_URL = 'https://kiara-server.vercel.app';
+export const CLIENT_BASE_URL = 'https://kiara-server.vercel.app/client';
+export const ADMIN_BASE_URL = 'https://kiara-server.vercel.app/admin';
+
 export const PAN_BASE_URL = 'https://mvp.verify24x7.in/verifyApi';
 
 const defaultConfig = {
