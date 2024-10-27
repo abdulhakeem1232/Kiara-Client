@@ -7,7 +7,7 @@ import { clientendpoints } from '../../Service/endpoints/clientAxios';
 import io from 'socket.io-client';
 
 // const socket = io('http://localhost:3001');
-const socket = io('https://13.61.84.213', {
+const socket = io('https://kiaramt.urbansole.tech', {
   transports: ['websocket']
 });
 

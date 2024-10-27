@@ -4,9 +4,9 @@ import axios from 'axios';
 // export const CLIENT_BASE_URL = 'http://localhost:3001/client';
 // export const ADMIN_BASE_URL = 'http://localhost:3001/admin';
 
-export const USER_BASE_URL = 'https://13.61.84.213';
-export const CLIENT_BASE_URL = 'https://13.61.84.213/client';
-export const ADMIN_BASE_URL = 'https://13.61.84.213/admin';
+export const USER_BASE_URL = 'https://kiaramt.urbansole.tech';
+export const CLIENT_BASE_URL = 'https://kiaramt.urbansole.tech/client';
+export const ADMIN_BASE_URL = 'https://kiaramt.urbansole.tech/admin';
 
 export const PAN_BASE_URL = 'https://mvp.verify24x7.in/verifyApi';
 
