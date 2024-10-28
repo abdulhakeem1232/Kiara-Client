@@ -34,6 +34,7 @@ function ClientHome() {
     fetchClientDetails();
 
     socket.on('clientDataUpdated', (updatedData) => {
+      console.log('Client data updated emited:', updatedData);
         if(id==updatedData.id){
             console.log('Client data updated:', updatedData);
             setClientDetails(updatedData); 
